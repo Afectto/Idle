@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9a1fc2b2c2c41c2a021fbe6f4278392, type: 3}
   m_Name: LeatherArmor
   m_EditorClassIdentifier: 
+  type: 1
   Defense: 1

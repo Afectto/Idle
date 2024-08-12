@@ -7,8 +7,13 @@ public class ArmorStats : ItemStats
 {
     public float Defense;
     
-    public override void ApplyItem()
+    public override void ApplyItem(Player target)
     {
-        
+        target.ChangeStat(Type, Defense);
+    }
+
+    public override void RemoveItem(Player target)
+    {
+        target.ChangeStat(Type, -Defense);
     }
 }

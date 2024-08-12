@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: PlayerStats
   m_EditorClassIdentifier: 
   stats:
-    Health: 0
+    Health: 40
     Armor: 0
-    AttackPower: 10
-    TimeToPrepareAttack: 0
-    Luck: 0
+    AttackPower: 1
+    TimeToPrepareAttack: 2
+    Luck: 1

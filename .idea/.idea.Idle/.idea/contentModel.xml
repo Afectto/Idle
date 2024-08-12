@@ -9,10 +9,18 @@
       <e p="Assets" t="Include">
         <e p="Scripts" t="Include">
           <e p="Enemy" t="Include">
+            <e p="Enemy.cs" t="Include" />
             <e p="EnemyStats.cs" t="Include" />
           </e>
+          <e p="Health" t="Include">
+            <e p="EnemyHealth.cs" t="Include" />
+            <e p="Health.cs" t="Include" />
+            <e p="PlayerHealth.cs" t="Include" />
+          </e>
           <e p="Info" t="Include">
+            <e p="Character.cs" t="Include" />
             <e p="Stats.cs" t="Include" />
+            <e p="StatType.cs" t="Include" />
           </e>
           <e p="Item" t="Include">
             <e p="Item.cs" t="Include" />
@@ -24,7 +32,19 @@
             </e>
           </e>
           <e p="Player" t="Include">
+            <e p="Player.cs" t="Include" />
             <e p="PlayerStats.cs" t="Include" />
+            <e p="Weapon.cs" t="Include" />
+          </e>
+          <e p="State" t="Include">
+            <e p="AttackState.cs" t="Include" />
+            <e p="IdleState.cs" t="Include" />
+            <e p="Player" t="Include">
+              <e p="ChangeWeaponState.cs" t="Include" />
+            </e>
+            <e p="PrepareToFightState.cs" t="Include" />
+            <e p="State.cs" t="Include" />
+            <e p="StateMachine.cs" t="Include" />
           </e>
         </e>
       </e>

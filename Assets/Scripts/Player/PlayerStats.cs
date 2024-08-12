@@ -6,4 +6,5 @@ public class PlayerStats : ScriptableObject
     [SerializeField] private Stats stats;
     
     public Stats Stats => stats;
+    
 }

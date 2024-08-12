@@ -6,4 +6,15 @@ public class Item :ScriptableObject
 {
     [SerializeField] private Image skin;
     [SerializeReference] private ItemStats _stats;
+
+    public void ApplyItem(Player target)
+    {
+        _stats.ApplyItem(target);
+    }
+    
+    
+    public void RemoveItem(Player target)
+    {
+        _stats.RemoveItem(target);
+    }
 }

@@ -7,8 +7,13 @@ public class ConsumablesStats : ItemStats
 {
     public float HealthRestored;
     
-    public override void ApplyItem()
+    public override void ApplyItem(Player target)
     {
-        
+        target.ChangeStat(Type, HealthRestored);
+    }
+
+    public override void RemoveItem(Player target)
+    {
+        target.ChangeStat(Type, HealthRestored);
     }
 }

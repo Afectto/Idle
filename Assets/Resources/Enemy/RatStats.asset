@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5d2b20829304e519b73cec7ed3c2532, type: 3}
+  m_Name: RatStats
+  m_EditorClassIdentifier: 
+  stats:
+    Health: 10
+    Armor: 0
+    AttackPower: 1
+    TimeToPrepareAttack: 3
+    Luck: 0
+  enemyPrefab: {fileID: 0}
+  chanceToSpawn: 0.6
+  exp: 2
+  itemDropList:
+  - {fileID: 11400000, guid: 82e8d06678731e74396dbd5a8de9734a, type: 2}
+  - {fileID: 11400000, guid: 101fe6fb8a7b3a346bdd222b59ed3410, type: 2}
+  - {fileID: 11400000, guid: bfad89a70850b5843bb917ce53f00ed0, type: 2}
