@@ -18,10 +18,10 @@ MonoBehaviour:
     AttackPower: 1
     TimeToPrepareAttack: 2
     Luck: 0
-  enemyPrefab: {fileID: 0}
   chanceToSpawn: 0.3
   exp: 2
   itemDropList:
   - {fileID: 11400000, guid: 82e8d06678731e74396dbd5a8de9734a, type: 2}
   - {fileID: 11400000, guid: bfad89a70850b5843bb917ce53f00ed0, type: 2}
   - {fileID: 11400000, guid: 36c713b353c149941bda35b0dbeb4219, type: 2}
+  skin: {fileID: 21300000, guid: 680b949c9d9c33849a2516a3c843fb2f, type: 3}

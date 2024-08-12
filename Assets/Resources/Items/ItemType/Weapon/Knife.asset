@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 293f4e7cd057e184591a412a8fafdd77, type: 3}
   m_Name: Knife
   m_EditorClassIdentifier: 
-  skin: {fileID: 0}
+  skin: {fileID: 21300000, guid: 0788708271356de4799e200120f714be, type: 3}
   _stats: {fileID: 11400000, guid: 99dfb21e4287f814ea3b7d91c98f0826, type: 2}

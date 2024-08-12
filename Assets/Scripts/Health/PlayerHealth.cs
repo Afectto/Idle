@@ -9,6 +9,7 @@ public class PlayerHealth : Health
     {
         _player = GetComponent<Player>();
         _player.HealthChange += ChangeSlider;
+        Initialize(_player.GetCurrentStats().Health);
     }
 
     private void OnDestroy()

@@ -2,24 +2,20 @@
 using UnityEngine;
 
 public class PrepareToFightState : State
-{
-    private float _preparationTime;
+{    
     private float _timeLeft;
     private StateMachine _stateMachine;
     private bool _isChangeStateToAttack;
-    private WeaponStats _weaponStats;
 
-    public PrepareToFightState(StateMachine stateMachine, float preparationTime, WeaponStats currentWeaponStats)
+    public PrepareToFightState(StateMachine stateMachine)
     {
         _stateMachine = stateMachine;
-        _preparationTime = preparationTime;
-        _weaponStats = currentWeaponStats;
     }
 
     public override void Enter()
     {
         Debug.Log("Character is Prepare To Fight.");
-        _timeLeft = _preparationTime;
+        _timeLeft = _stateMachine.PreparationTime;
         _isChangeStateToAttack = false;
     }
 
@@ -34,10 +30,10 @@ public class PrepareToFightState : State
         {
             _timeLeft -= Time.deltaTime;
         }
-        else if(!_isChangeStateToAttack)
+        else if (!_isChangeStateToAttack)
         {
             _isChangeStateToAttack = true;
-            _stateMachine.ChangeState(new AttackState(_stateMachine, _preparationTime, _weaponStats)); 
+            _stateMachine.ChangeState(new AttackState(_stateMachine)); 
         }
     }
 }

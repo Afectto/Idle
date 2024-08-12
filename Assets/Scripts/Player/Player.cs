@@ -5,20 +5,27 @@ using UnityEngine;
 public class Player : Character
 {
     [SerializeField] private PlayerStats baseStats;
+    [SerializeField]private Enemy _target;
     private Weapon _weapon;
-    private Stats _currentStats;
+    // private Stats _currentStats;
     private float _maxHealth;
 
+
     public Action<StatType, float> StatChange;
-    public Action<float, float> HealthChange;
+    public Action<float> HealthChange;
+
+    private void Awake()
+    {
+        currentStats = baseStats.Stats;
+        _maxHealth = baseStats.Stats.Health;
+        _weapon = GetComponent<Weapon>();
+    }
 
     protected override void Start()
     {
         base.Start();
-        _weapon = GetComponent<Weapon>();
-        _currentStats = baseStats.Stats;
-        _maxHealth = baseStats.Stats.Health;
-        HealthChange?.Invoke(_currentStats.Health, _maxHealth);
+        HealthChange?.Invoke(_maxHealth);
+        StateMachine.SetCommonParameters(baseStats.Stats.TimeToPrepareAttack, _weapon.GetWeaponStats(), _target);
     }
 
     protected override void Update()
@@ -40,37 +47,35 @@ public class Player : Character
         switch (statType)
         {
             case StatType.Health:
-                _currentStats.Health += value;
-                _currentStats.Health = Mathf.Clamp(_currentStats.Health, 0, _maxHealth);
-                HealthChange?.Invoke(_currentStats.Health, _maxHealth);
+                currentStats.Health += value;
+                currentStats.Health = Mathf.Clamp(currentStats.Health, 1, _maxHealth);
+                HealthChange?.Invoke(currentStats.Health);
+                break;
+            case StatType.Restored:
+                GetComponent<Health>().Heal(value);
                 break;
             case StatType.Armor:
-                _currentStats.Armor += value;
+                currentStats.Armor += value;
                 break;
             case StatType.AttackPower:
-                _currentStats.AttackPower += value;
+                currentStats.AttackPower += value;
                 break;
             case StatType.TimeToPrepareAttack:
-                _currentStats.TimeToPrepareAttack += value;
+                currentStats.TimeToPrepareAttack += value;
                 break;
             case StatType.Luck:
-                _currentStats.Luck += value;
+                currentStats.Luck += value;
                 break;
         }
         
         StatChange?.Invoke(statType, value);
     }
-
-    public void AddMaxHealth(float value)
-    {
-        _maxHealth += value;
-    }
-
+    
     private void StartFight()
     {
-        StateMachine.ChangeState(new PrepareToFightState(StateMachine, _currentStats.TimeToPrepareAttack, _weapon.GetWeaponStats()));
+        if (_target)
+        {
+            StateMachine.ChangeState(new PrepareToFightState(StateMachine));
+        }
     }
-
-
-    
 }

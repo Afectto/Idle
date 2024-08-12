@@ -4,15 +4,29 @@ using UnityEngine;
 public class StateMachine 
 {
     private State _currentState;
-    private readonly MonoBehaviour _owner;
+    private readonly Character _owner;
 
-    public MonoBehaviour Owner => _owner;
+    public Character Owner => _owner;
+    private float _preparationTime;
+    private WeaponStats _currentWeaponStats;  
+    private Character _target;  
+    
+    public float PreparationTime => _preparationTime;
+    public WeaponStats GetCurrentWeaponStats() => _currentWeaponStats;
+    public Character GetCurrentTarget() => _target;
 
-    public StateMachine(MonoBehaviour owner)
+    public StateMachine(Character owner)
     {
         _owner = owner;
     }
-
+    
+    public void SetCommonParameters(float preparationTime, WeaponStats currentWeaponStats, Character target)
+    {
+        _preparationTime = preparationTime;
+        _currentWeaponStats = currentWeaponStats;
+        _target = target;
+    }
+    
     public void ChangeState(State newState)
     {
         _owner.StartCoroutine(ChangeStateCoroutine(newState));

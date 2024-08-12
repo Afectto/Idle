@@ -8,11 +8,7 @@ public class EnemyHealth : Health
     void Start()
     {
         _enemy = GetComponent<Enemy>();
-        _enemy.HealthChange += ChangeSlider;
+        Initialize(_enemy.CurrentStats.Stats.Health);
     }
 
-    private void OnDestroy()
-    {
-        _enemy.HealthChange -= ChangeSlider;
-    }
 }

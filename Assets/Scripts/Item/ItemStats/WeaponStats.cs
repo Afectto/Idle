@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 [Serializable]
 [CreateAssetMenu(fileName = "WeaponStats", menuName = "GameInfo/ItemStats/New WeaponStats")]

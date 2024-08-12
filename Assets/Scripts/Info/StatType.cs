@@ -4,5 +4,6 @@
     Armor,
     AttackPower,
     TimeToPrepareAttack,
-    Luck
+    Luck,
+    Restored,
 }

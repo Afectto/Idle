@@ -14,6 +14,5 @@ public class ConsumablesStats : ItemStats
 
     public override void RemoveItem(Player target)
     {
-        target.ChangeStat(Type, HealthRestored);
     }
 }

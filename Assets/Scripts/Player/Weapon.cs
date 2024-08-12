@@ -2,8 +2,7 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    private Player _player;
-    private WeaponStats _stats;
+    [SerializeField]private WeaponStats _stats;
 
     public WeaponStats GetWeaponStats()
     {

@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 293f4e7cd057e184591a412a8fafdd77, type: 3}
   m_Name: Bow
   m_EditorClassIdentifier: 
-  skin: {fileID: 0}
+  skin: {fileID: 21300000, guid: 04ef2a6435ff50e46b64352cf421afe4, type: 3}
   _stats: {fileID: 11400000, guid: b32fa56a938ea7541969fac0136539f1, type: 2}

@@ -3,7 +3,10 @@
 public abstract class Character : MonoBehaviour
 {
     protected StateMachine StateMachine;
+    protected Stats currentStats;
 
+    public virtual Stats GetCurrentStats() => currentStats;
+    
     protected virtual void Start()
     {
         StateMachine = new StateMachine(this);
@@ -19,4 +22,5 @@ public abstract class Character : MonoBehaviour
     {
         StateMachine.ChangeState(new IdleState());
     }
+
 }

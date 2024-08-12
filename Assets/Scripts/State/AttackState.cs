@@ -1,27 +1,22 @@
 ﻿using System.Collections;
 using UnityEngine;
-
 public class AttackState : State
 {
     private StateMachine _stateMachine;
     private Character _character;
-    private float _preparationTime;
     private float _attackDuration;
-    private WeaponStats _currentWeaponStats;
 
-    public AttackState(StateMachine stateMachine, float preparationTime, WeaponStats currentWeaponStats)
+    public AttackState(StateMachine stateMachine)
     {
         _stateMachine = stateMachine;
-        _preparationTime = preparationTime;
         _character = stateMachine.Owner as Character;
-        _attackDuration = currentWeaponStats.AttackDuration;
-        _currentWeaponStats = currentWeaponStats;
+        _attackDuration = stateMachine.GetCurrentWeaponStats().AttackDuration; 
     }
 
     public override void Enter()
     {
         Debug.Log("Character is attacking.");
-        _character.StartCoroutine( PerformAttack());
+        _character.StartCoroutine(PerformAttack());
     }
 
     public override IEnumerator Exit()
@@ -36,6 +31,24 @@ public class AttackState : State
     private IEnumerator PerformAttack()
     {
         yield return _character.StartCoroutine(Exit());
-        _stateMachine.ChangeState(new PrepareToFightState(_stateMachine, _preparationTime, _currentWeaponStats));
+        
+        var weaponStats = _stateMachine.GetCurrentWeaponStats();
+        var healthTarget = _stateMachine.GetCurrentTarget().GetComponent<Health>();
+
+        int damage = CalculateDamage(weaponStats);
+
+        healthTarget.SetDamage(damage);
+        _stateMachine.ChangeState(new PrepareToFightState(_stateMachine));
+    }
+
+    private int CalculateDamage(WeaponStats weaponStats)
+    {
+        float baseDamage = weaponStats.Damage;
+        float attackPower = _character.GetCurrentStats().AttackPower;
+        float enemyArmor = _stateMachine.GetCurrentTarget().GetCurrentStats().Armor;
+
+        int totalDamage = Mathf.Max(0, (int)(baseDamage + attackPower - enemyArmor));
+        Debug.Log($"Total Damage: {totalDamage}");
+        return totalDamage;
     }
 }
