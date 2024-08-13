@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class Enemy : Character
@@ -15,6 +14,15 @@ public class Enemy : Character
         skin.sprite = stats.Skin;
         _target = FindObjectOfType<Player>();
         StateMachine.SetCommonParameters(stats.Stats.TimeToPrepareAttack, GetComponent<Weapon>().GetWeaponStats(), _target);
+        
+        
+        _target.GetComponent<Health>().IsDead += TargetDead;
+        GetComponent<Health>().IsDead += TargetDead;
+    }
+
+    private void TargetDead()
+    {
+        StateMachine.ForceChangeState(new IdleState());
     }
 
     public override Stats GetCurrentStats()

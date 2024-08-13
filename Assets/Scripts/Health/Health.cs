@@ -10,7 +10,7 @@ public abstract class Health : MonoBehaviour
     private float _maxHealth;
     private float _currentHealth;
 
-    public Action IsDead;
+    public event Action IsDead;
     
     public void Initialize(float maxHealth)
     {

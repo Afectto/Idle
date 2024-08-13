@@ -1,5 +1,5 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using System;
+using System.Collections;
 
 public class StateMachine 
 {
@@ -15,6 +15,8 @@ public class StateMachine
     public WeaponStats GetCurrentWeaponStats() => _currentWeaponStats;
     public Character GetCurrentTarget() => _target;
 
+    public event Action<State> OnChangeState;
+    
     public StateMachine(Character owner)
     {
         _owner = owner;
@@ -48,6 +50,8 @@ public class StateMachine
 
         _currentState = newState;
         _currentState.Enter();
+        
+        OnChangeState?.Invoke(_currentState);
     }
     
     public void Update()

@@ -6,26 +6,33 @@ public class Player : Character
 {
     [SerializeField] private PlayerStats baseStats;
     [SerializeField]private Enemy _target;
-    private Weapon _weapon;
     // private Stats _currentStats;
     private float _maxHealth;
 
 
-    public Action<StatType, float> StatChange;
-    public Action<float> HealthChange;
+    public event Action<StatType, float> StatChange;
+    public event Action<float> HealthChange;
 
     private void Awake()
     {
         currentStats = baseStats.Stats;
         _maxHealth = baseStats.Stats.Health;
-        _weapon = GetComponent<Weapon>();
+        _target.GetComponent<Health>().IsDead += TargetDead;
+        GetComponent<Health>().IsDead += TargetDead;
+    }
+    
+    private void TargetDead()
+    {
+        StateMachine.ForceChangeState(new IdleState());
     }
 
     protected override void Start()
     {
         base.Start();
+        
+        StateMachine.ChangeState(new OutOfCombatState());
         HealthChange?.Invoke(_maxHealth);
-        StateMachine.SetCommonParameters(baseStats.Stats.TimeToPrepareAttack, _weapon.GetWeaponStats(), _target);
+        StateMachine.SetCommonParameters(baseStats.Stats.TimeToPrepareAttack, weapon.GetWeaponStats(), _target);
     }
 
     protected override void Update()

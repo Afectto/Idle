@@ -17,6 +17,9 @@
             <e p="Health.cs" t="Include" />
             <e p="PlayerHealth.cs" t="Include" />
           </e>
+          <e p="Indicator" t="Include">
+            <e p="FightIndicator.cs" t="Include" />
+          </e>
           <e p="Info" t="Include">
             <e p="Character.cs" t="Include" />
             <e p="Stats.cs" t="Include" />
@@ -41,6 +44,7 @@
             <e p="IdleState.cs" t="Include" />
             <e p="Player" t="Include">
               <e p="ChangeWeaponState.cs" t="Include" />
+              <e p="OutOfCombatState.cs" t="Include" />
             </e>
             <e p="PrepareToFightState.cs" t="Include" />
             <e p="State.cs" t="Include" />
