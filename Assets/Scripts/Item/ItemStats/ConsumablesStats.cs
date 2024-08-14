@@ -9,7 +9,7 @@ public class ConsumablesStats : ItemStats
     
     public override void ApplyItem(Player target)
     {
-        target.ChangeStat(Type, HealthRestored);
+        target.ChangeStat(StatsType, HealthRestored);
     }
 
     public override void RemoveItem(Player target)

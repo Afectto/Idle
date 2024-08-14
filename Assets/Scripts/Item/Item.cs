@@ -6,6 +6,8 @@ public class Item : ScriptableObject
     [SerializeField] private Sprite skin;
     [SerializeReference] private ItemStats _stats;
 
+    public Sprite GetSkin() => skin;
+    
     public void ApplyItem(Player target)
     {
         _stats.ApplyItem(target);

@@ -9,11 +9,11 @@ public class ArmorStats : ItemStats
     
     public override void ApplyItem(Player target)
     {
-        target.ChangeStat(Type, Defense);
+        target.ChangeStat(StatsType, Defense);
     }
 
     public override void RemoveItem(Player target)
     {
-        target.ChangeStat(Type, -Defense);
+        target.ChangeStat(StatsType, -Defense);
     }
 }

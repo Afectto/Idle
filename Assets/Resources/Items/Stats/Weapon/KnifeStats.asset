@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eece759e5ce9423099d907b861e667f2, type: 3}
   m_Name: KnifeStats
   m_EditorClassIdentifier: 
-  type: 2
+  statType: 0
+  weaponType: 0
   Damage: 2
   AttackDuration: 0.2
