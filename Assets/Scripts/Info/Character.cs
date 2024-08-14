@@ -8,6 +8,7 @@ public abstract class Character : MonoBehaviour
     protected Weapon Weapon;
     protected Character Target;
 
+    public State GetCurrentState() => StateMachine?.GetCurrentState();
     public virtual Stats GetCurrentStats() => currentStats;
     public event Action<State> OnChangeState; 
     
