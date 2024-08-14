@@ -15,7 +15,8 @@ public abstract class Health : MonoBehaviour
     public void Initialize(float maxHealth)
     {
         _maxHealth = maxHealth;
-        _currentHealth = _maxHealth;
+        _currentHealth = _maxHealth; 
+        gameObject.SetActive(true);
         ChangeSlider(_currentHealth, _maxHealth);
     }
 
@@ -45,8 +46,8 @@ public abstract class Health : MonoBehaviour
         fill.fillAmount = currentHealth / maxHealth;
         if (currentHealth == 0)
         {
-            IsDead?.Invoke();
             gameObject.SetActive(false);
+            IsDead?.Invoke();
         }
     }
 }

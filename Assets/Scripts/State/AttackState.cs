@@ -19,9 +19,9 @@ public class AttackState : State
         _character.StartCoroutine(PerformAttack());
     }
 
-    public override IEnumerator Exit()
+    public override IEnumerator Exit(bool isForce = false, float duration = 0)
     {
-        yield return new WaitForSeconds(_attackDuration);
+        yield return base.Exit(isForce, duration);
     }
 
     public override void Update()
@@ -30,7 +30,7 @@ public class AttackState : State
 
     private IEnumerator PerformAttack()
     {
-        yield return _character.StartCoroutine(Exit());
+        yield return _character.StartCoroutine(Exit(false, _attackDuration));
         
         var weaponStats = _stateMachine.GetCurrentWeaponStats();
         var healthTarget = _stateMachine.GetCurrentTarget().GetComponent<Health>();

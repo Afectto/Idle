@@ -5,7 +5,8 @@ public abstract class Character : MonoBehaviour
 {
     protected StateMachine StateMachine;
     protected Stats currentStats;
-    protected Weapon weapon;
+    protected Weapon Weapon;
+    protected Character Target;
 
     public virtual Stats GetCurrentStats() => currentStats;
     public event Action<State> OnChangeState; 
@@ -13,19 +14,14 @@ public abstract class Character : MonoBehaviour
     protected virtual void Start()
     {
         StateMachine = new StateMachine(this);
-        StateMachine.OnChangeState += HandleChangeState;
-        weapon = GetComponent<Weapon>();
-        StartIdle();
+        StateMachine.OnChangeState += ChangeState;
+        Weapon = GetComponent<Weapon>();
+        OutOfFight();
     }
 
     public WeaponStats GetWeaponStats()
     {
-        return weapon.GetWeaponStats();
-    }
-
-    protected void HandleChangeState(State currentState)
-    {
-        OnChangeState?.Invoke(currentState);
+        return Weapon.GetWeaponStats();
     }
 
     protected virtual void Update()
@@ -33,9 +29,46 @@ public abstract class Character : MonoBehaviour
         StateMachine.Update();
     }
     
-    protected void StartIdle()
+    public void OutOfFight()
     {
-        StateMachine.ChangeState(new IdleState());
+        StateMachine.ChangeState(new OutOfCombatState(StateMachine));
     }
+    
+    public void StartFight()
+    {
+        StateMachine.ChangeState(new PrepareToFightState(StateMachine));
+    }
+
+    protected void ChangeState(State state)
+    {
+        OnChangeState?.Invoke(state);
+        switch (state.GetType().Name)
+        {
+            case nameof(AttackState):
+                OnEnterAttackState();
+                break;
+            case nameof(PrepareToFightState):
+                OnEnterPrepareToFightState();
+                break;
+            case nameof(IdleState):
+                OnEnterIdleState();
+                break;
+            case nameof(OutOfCombatState):
+                OnEnterOutOfCombatState();
+                break;
+            case nameof(ChangeWeaponState):
+                OnEnterChangeWeaponState();
+                break;
+        }
+    }
+
+    protected abstract void OnEnterAttackState();
+    protected abstract void OnEnterPrepareToFightState();
+    protected abstract void OnEnterIdleState();
+    protected abstract void OnEnterOutOfCombatState();
+    protected abstract void OnEnterChangeWeaponState();
+
+
+
 
 }

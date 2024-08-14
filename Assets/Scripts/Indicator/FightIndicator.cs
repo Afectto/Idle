@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,6 +7,7 @@ public class FightIndicator : MonoBehaviour
 {
     [SerializeField] private Image indicator;
     private Character owner;
+    private State _currentState;
 
     private void Awake()
     {
@@ -15,6 +17,10 @@ public class FightIndicator : MonoBehaviour
 
     private void OnChangeState(State currentState)
     {
+        if(currentState == null) return;
+        
+        StopAllCoroutines();
+        
         indicator.gameObject.SetActive(true);
         indicator.fillAmount = 1;
         float time;
@@ -42,9 +48,15 @@ public class FightIndicator : MonoBehaviour
                 break;
         }
     }
-    
+
+
     private IEnumerator DecreaseIndicator(float duration)
     {
+        if (owner is Player)
+        {
+            Debug.Log($"{duration} DURATION FIGHT INDICATOR");
+        }
+        
         float elapsedTime = 0;
         indicator.fillAmount = 1;
     

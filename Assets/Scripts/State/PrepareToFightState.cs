@@ -10,18 +10,21 @@ public class PrepareToFightState : State
     public PrepareToFightState(StateMachine stateMachine)
     {
         _stateMachine = stateMachine;
+        Debug.Log($"{_stateMachine.Owner.GetType().Name} is INITIAL Prepare To Fight.");
+        
     }
 
     public override void Enter()
     {
-        Debug.Log("Character is Prepare To Fight.");
+        Debug.Log($"{_stateMachine.Owner.GetType().Name} is ENTER Prepare To Fight.");
         _timeLeft = _stateMachine.PreparationTime;
         _isChangeStateToAttack = false;
     }
 
-    public override IEnumerator Exit()
+    public override IEnumerator Exit(bool isForce = false, float duration = 0)
     {
-        yield return null;
+       yield return base.Exit(isForce, duration);
+       Debug.Log($"{_stateMachine.Owner.GetType().Name} is EXIT Prepare To Fight.");
     }
 
     public override void Update()
@@ -33,6 +36,8 @@ public class PrepareToFightState : State
         else if (!_isChangeStateToAttack)
         {
             _isChangeStateToAttack = true;
+            Debug.Log($"{_stateMachine.Owner.GetType().Name} is Change Prepare To Fight.");
+            
             _stateMachine.ChangeState(new AttackState(_stateMachine)); 
         }
     }

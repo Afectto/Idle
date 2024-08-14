@@ -31,14 +31,18 @@ public class StateMachine
     
     public void ChangeState(State newState)
     {
-        _owner.StartCoroutine(ChangeStateCoroutine(newState));
+        if (_owner ?? newState != _currentState)
+        {
+            _owner.StartCoroutine(ChangeStateCoroutine(newState));
+        }
     }
     
     public void ForceChangeState(State newState)
     {
-        _currentState.Exit();
+        _currentState.Exit(true);
         _currentState = newState;
         _currentState.Enter();
+        OnChangeState?.Invoke(newState);
     }
     
     private IEnumerator ChangeStateCoroutine(State newState)
@@ -50,8 +54,8 @@ public class StateMachine
 
         _currentState = newState;
         _currentState.Enter();
+        OnChangeState?.Invoke(newState);
         
-        OnChangeState?.Invoke(_currentState);
     }
     
     public void Update()

@@ -4,9 +4,9 @@ public class ChangeWeaponState : State
 {
     public override void Enter() { }
 
-    public override IEnumerator Exit()
+    public override IEnumerator Exit(bool isForce = false, float duration = 0)
     {
-        yield return null;
+        yield return base.Exit(isForce, duration);
     }
     public override void Update() { /* Логика для смены оружия */ }
 }

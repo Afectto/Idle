@@ -8,7 +8,10 @@ public class EnemyHealth : Health
     void Start()
     {
         _enemy = GetComponent<Enemy>();
-        Initialize(_enemy.CurrentStats.Stats.Health);
+        if (_enemy.CurrentStats)
+        {
+            Initialize(_enemy.CurrentStats.Stats.Health);
+        }
     }
 
 }

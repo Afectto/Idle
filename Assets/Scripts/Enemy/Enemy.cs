@@ -1,54 +1,75 @@
+using System;
 using UnityEngine;
 
 public class Enemy : Character
 {
-    [SerializeField] private EnemyStats stats;
     [SerializeField] private SpriteRenderer skin;
+    private EnemyStats _stats;
 
-    public EnemyStats CurrentStats => stats;
-    private Player _target;
+    public EnemyStats CurrentStats => _stats;
 
     protected override void Start()
     {
         base.Start();
-        skin.sprite = stats.Skin;
-        _target = FindObjectOfType<Player>();
-        StateMachine.SetCommonParameters(stats.Stats.TimeToPrepareAttack, GetComponent<Weapon>().GetWeaponStats(), _target);
         
+        // GetComponent<Health>().IsDead += TargetDead;
+        gameObject.SetActive(false);
+    }
+
+    protected override void OnEnterAttackState()
+    {
         
-        _target.GetComponent<Health>().IsDead += TargetDead;
-        GetComponent<Health>().IsDead += TargetDead;
+    }
+
+    protected override void OnEnterPrepareToFightState()
+    {
+        Target = FindObjectOfType<Player>();
+        Target.GetComponent<Health>().IsDead += TargetDead;
+        StateMachine.SetCommonParameters(_stats.Stats.TimeToPrepareAttack, GetComponent<Weapon>().GetWeaponStats(), Target);
+        gameObject.SetActive(true);
+    }
+
+    protected override void OnEnterIdleState()
+    {
+    }
+
+    protected override void OnEnterOutOfCombatState()
+    {
+        gameObject.SetActive(false);
+    }
+
+    protected override void OnEnterChangeWeaponState()
+    {
     }
 
     private void TargetDead()
     {
-        StateMachine.ForceChangeState(new IdleState());
+        StateMachine.ForceChangeState(new IdleState(StateMachine));
+    }
+
+    public void SetNewStats(EnemyStats newStats)
+    {
+        if(StateMachine == null) return;
+        
+        _stats = newStats;
+        skin.sprite = _stats.Skin;
+        GetComponent<Health>().Initialize(_stats.Stats.Health);
+        StateMachine.SetCommonParameters(_stats.Stats.TimeToPrepareAttack, GetComponent<Weapon>().GetWeaponStats(), Target);
+        StateMachine.ForceChangeState(new PrepareToFightState(StateMachine));
     }
 
     public override Stats GetCurrentStats()
     {
-        return stats.Stats;
+        return _stats.Stats;
     }
-    
-    protected override void Update()
-    {
-        base.Update();
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            StartFight();
-        }
 
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            StartIdle();
-        }
-    }
-    
-    private void StartFight()
+    private void OnDestroy()
     {
-        if (_target)
+        StateMachine.OnChangeState -= ChangeState;
+        if (Target)
         {
-            StateMachine.ChangeState(new PrepareToFightState(StateMachine));
+            Target.GetComponent<Health>().IsDead -= TargetDead;
         }
+        GetComponent<Health>().IsDead -= TargetDead;
     }
 }

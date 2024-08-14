@@ -5,11 +5,8 @@ using UnityEngine;
 public class Player : Character
 {
     [SerializeField] private PlayerStats baseStats;
-    [SerializeField]private Enemy _target;
-    // private Stats _currentStats;
     private float _maxHealth;
-
-
+    
     public event Action<StatType, float> StatChange;
     public event Action<float> HealthChange;
 
@@ -17,36 +14,49 @@ public class Player : Character
     {
         currentStats = baseStats.Stats;
         _maxHealth = baseStats.Stats.Health;
-        _target.GetComponent<Health>().IsDead += TargetDead;
-        GetComponent<Health>().IsDead += TargetDead;
+        // GetComponent<Health>().IsDead += TargetDead;
     }
     
     private void TargetDead()
     {
-        StateMachine.ForceChangeState(new IdleState());
+        StateMachine.ForceChangeState(new IdleState(StateMachine));
     }
 
     protected override void Start()
     {
         base.Start();
         
-        StateMachine.ChangeState(new OutOfCombatState());
         HealthChange?.Invoke(_maxHealth);
-        StateMachine.SetCommonParameters(baseStats.Stats.TimeToPrepareAttack, weapon.GetWeaponStats(), _target);
+        StateMachine.SetCommonParameters(baseStats.Stats.TimeToPrepareAttack, Weapon.GetWeaponStats(), Target);
     }
 
-    protected override void Update()
+    protected override void OnEnterAttackState()
     {
-        base.Update();
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            StartFight();
-        }
+    }
 
-        if (Input.GetKeyDown(KeyCode.A))
+    protected override void OnEnterPrepareToFightState()
+    {
+        Target = FindObjectOfType<Enemy>();
+        Target.GetComponent<Health>().IsDead += TargetDead;
+        StateMachine.SetCommonParameters(baseStats.Stats.TimeToPrepareAttack, Weapon.GetWeaponStats(), Target);
+    }
+
+    protected override void OnEnterIdleState()
+    {
+    }
+
+    protected override void OnEnterOutOfCombatState()
+    {
+        if (Target != null)
         {
-            StartIdle();
+            Target.GetComponent<Health>().IsDead -= TargetDead;
         }
+    }
+
+    protected override void OnEnterChangeWeaponState()
+    {
+        Target = FindObjectOfType<Enemy>();
+        Target.GetComponent<Health>().IsDead += TargetDead;
     }
 
     public void ChangeStat(StatType statType, float value)
@@ -77,12 +87,13 @@ public class Player : Character
         
         StatChange?.Invoke(statType, value);
     }
-    
-    private void StartFight()
+    private void OnDestroy()
     {
-        if (_target)
+        if (Target)
         {
-            StateMachine.ChangeState(new PrepareToFightState(StateMachine));
+            Target.GetComponent<Health>().IsDead -= TargetDead;
         }
+        GetComponent<Health>().IsDead -= TargetDead;
     }
+
 }
