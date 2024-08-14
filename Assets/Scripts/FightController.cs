@@ -13,6 +13,7 @@ public class FightController : MonoBehaviour
     private void Awake()
     {
         button.onClick.AddListener(StartFight);
+        player.IsDead += StopFight;
     }
 
     private void StartFight()

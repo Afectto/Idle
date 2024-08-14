@@ -32,7 +32,7 @@ public class StateMachine
     
     public void ChangeState(State newState)
     {
-        if (_owner ?? newState != _currentState)
+        if (_owner && _owner.isActiveAndEnabled && newState != _currentState)
         {
             _owner.StartCoroutine(ChangeStateCoroutine(newState));
         }

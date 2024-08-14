@@ -11,7 +11,6 @@ public class Enemy : Character
     {
         base.Start();
         
-        // GetComponent<Health>().IsDead += TargetDead;
         gameObject.SetActive(false);
     }
 
@@ -47,7 +46,7 @@ public class Enemy : Character
 
     private void TargetDead()
     {
-        StateMachine.ForceChangeState(new IdleState(StateMachine));
+        StateMachine.ForceChangeState(new OutOfCombatState(StateMachine));
     }
 
     public void SetNewStats(EnemyStats newStats)

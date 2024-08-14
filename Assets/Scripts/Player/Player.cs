@@ -5,18 +5,24 @@ using UnityEngine;
 public class Player : Character
 {
     [SerializeField] private PlayerStats baseStats;
-    private float _maxHealth;
-    
     public event Action<StatType, float> StatChange;
     public event Action<float> HealthChange;
+    public event Action IsDead;
 
     private void Awake()
     {
         currentStats = baseStats.Stats;
-        _maxHealth = baseStats.Stats.Health;
-        // GetComponent<Health>().IsDead += TargetDead;
+        GetComponent<Health>().IsDead += PlayerDead;
     }
-    
+
+    private void PlayerDead()
+    {
+        IsDead?.Invoke();
+        StateMachine.ForceChangeState(new OutOfCombatState(StateMachine));
+        gameObject.SetActive(true);
+        GetComponent<Health>().Heal(currentStats.Health);
+    }
+
     private void TargetDead()
     {
         StateMachine.ForceChangeState(new IdleState(StateMachine));
@@ -25,8 +31,7 @@ public class Player : Character
     protected override void Start()
     {
         base.Start();
-        
-        HealthChange?.Invoke(_maxHealth);
+
         StateMachine.SetCommonParameters(baseStats.Stats.TimeToPrepareAttack, Weapon.GetWeaponStats(), Target);
     }
 
@@ -68,7 +73,6 @@ public class Player : Character
         {
             case StatType.Health:
                 currentStats.Health += value;
-                currentStats.Health = Mathf.Clamp(currentStats.Health, 1, _maxHealth);
                 HealthChange?.Invoke(currentStats.Health);
                 break;
             case StatType.Restored:
@@ -87,7 +91,7 @@ public class Player : Character
                 currentStats.Luck += value;
                 break;
         }
-        
+
         StatChange?.Invoke(statType, value);
     }
 
@@ -97,7 +101,7 @@ public class Player : Character
         {
             Target.GetComponent<Health>().IsDead -= TargetDead;
         }
+
         GetComponent<Health>().IsDead -= TargetDead;
     }
-
 }
