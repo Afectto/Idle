@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class Enemy : Character
@@ -24,9 +23,13 @@ public class Enemy : Character
     protected override void OnEnterPrepareToFightState()
     {
         Target = FindObjectOfType<Player>();
-        Target.GetComponent<Health>().IsDead += TargetDead;
-        StateMachine.SetCommonParameters(_stats.Stats.TimeToPrepareAttack, GetComponent<Weapon>().GetWeaponStats(), Target);
-        gameObject.SetActive(true);
+        if (Target)
+        {
+            Target.GetComponent<Health>().IsDead += TargetDead;
+            StateMachine.SetCommonParameters(_stats.Stats.TimeToPrepareAttack, GetComponent<Weapon>().GetWeaponStats(),
+                Target);
+            gameObject.SetActive(true);
+        }
     }
 
     protected override void OnEnterIdleState()
@@ -65,7 +68,10 @@ public class Enemy : Character
 
     private void OnDestroy()
     {
-        StateMachine.OnChangeState -= ChangeState;
+        if (StateMachine != null)
+        {
+            StateMachine.OnChangeState -= ChangeState;
+        }
         if (Target)
         {
             Target.GetComponent<Health>().IsDead -= TargetDead;

@@ -14,6 +14,7 @@ public class StateMachine
     public float PreparationTime => _preparationTime;
     public WeaponStats GetCurrentWeaponStats() => _currentWeaponStats;
     public Character GetCurrentTarget() => _target;
+    public State GetCurrentState() => _currentState;
 
     public event Action<State> OnChangeState;
     

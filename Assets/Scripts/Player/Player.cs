@@ -37,8 +37,11 @@ public class Player : Character
     protected override void OnEnterPrepareToFightState()
     {
         Target = FindObjectOfType<Enemy>();
-        Target.GetComponent<Health>().IsDead += TargetDead;
-        StateMachine.SetCommonParameters(baseStats.Stats.TimeToPrepareAttack, Weapon.GetWeaponStats(), Target);
+        if (Target)
+        {
+            Target.GetComponent<Health>().IsDead += TargetDead;
+            StateMachine.SetCommonParameters(baseStats.Stats.TimeToPrepareAttack, Weapon.GetWeaponStats(), Target);
+        }
     }
 
     protected override void OnEnterIdleState()
@@ -87,6 +90,7 @@ public class Player : Character
         
         StatChange?.Invoke(statType, value);
     }
+
     private void OnDestroy()
     {
         if (Target)

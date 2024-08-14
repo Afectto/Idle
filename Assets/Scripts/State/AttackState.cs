@@ -32,6 +32,8 @@ public class AttackState : State
     {
         yield return _character.StartCoroutine(Exit(false, _attackDuration));
         
+        if(_stateMachine.GetCurrentState() != this) yield break;
+
         var weaponStats = _stateMachine.GetCurrentWeaponStats();
         var healthTarget = _stateMachine.GetCurrentTarget().GetComponent<Health>();
 

@@ -18,6 +18,7 @@ public abstract class State
     {
         if (isForce)
         {
+            Owner.StopAllCoroutines();
             InvokeExitState();
             yield break;
         }

@@ -19,6 +19,30 @@ public abstract class Character : MonoBehaviour
         OutOfFight();
     }
 
+    public void ChangeWeapon(WeaponStats stats)
+    {
+        var currentStateName = StateMachine.GetCurrentState().GetType().Name;
+        
+        if (currentStateName == nameof(AttackState))
+        {
+            void StateChangeHandler(object state) 
+            {
+                StateMachine.ChangeState(new ChangeWeaponState(StateMachine, Weapon, stats));
+                StateMachine.OnChangeState -= StateChangeHandler; // Используйте метод без приведения типов
+            }
+
+            StateMachine.OnChangeState += StateChangeHandler;
+        }
+        else if(currentStateName == nameof(OutOfCombatState))
+        {
+            Weapon.ChangeWeapon(stats);
+        }
+        else
+        {
+            StateMachine.ForceChangeState(new ChangeWeaponState(StateMachine, Weapon, stats));
+        }
+    }
+
     public WeaponStats GetWeaponStats()
     {
         return Weapon.GetWeaponStats();
