@@ -4,12 +4,12 @@ using UnityEngine;
 public abstract class Character : MonoBehaviour
 {
     protected StateMachine StateMachine;
-    [SerializeField]protected Stats currentStats;
+    protected Stats CurrentStats;
     protected Weapon Weapon;
     protected Character Target;
 
     public State GetCurrentState() => StateMachine?.GetCurrentState();
-    public virtual Stats GetCurrentStats() => currentStats;
+    public virtual Stats GetCurrentStats() => CurrentStats;
     public event Action<State> OnChangeState; 
     
     protected virtual void Awake()

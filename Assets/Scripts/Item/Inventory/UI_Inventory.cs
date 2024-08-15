@@ -10,6 +10,7 @@ public class UI_Inventory : MonoBehaviour
     private Inventory _inventory;
     private const int SlotCount = 5;
     private List<ItemSlot> _itemSlots;
+    private Enemy _enemy;
     // [SerializeField] private Item item; //DEBUG
     
     private void Awake()
@@ -18,6 +19,8 @@ public class UI_Inventory : MonoBehaviour
         _itemSlots = new List<ItemSlot>();
         manager.SetInventory(_inventory);
         CreateInventory();
+        _enemy = FindObjectOfType<Enemy>(true);
+        _enemy.OnDropItem += AddItem;
     }
 
     private void Update()
@@ -89,5 +92,10 @@ public class UI_Inventory : MonoBehaviour
             _inventory.SetItemToIndex(item?.GetItem(), i);
         }
         manager.SaveInventory();
+    }
+
+    private void OnDestroy()
+    {
+        _enemy.OnDropItem -= AddItem;
     }
 }

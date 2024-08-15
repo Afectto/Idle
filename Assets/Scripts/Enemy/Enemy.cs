@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Enemy : Character
 {
@@ -7,12 +9,38 @@ public class Enemy : Character
 
     public EnemyStats CurrentStats => _stats;
 
+    public event Action<Item> OnDropItem;
     protected override void Awake()
     {
         base.Awake();
+        GetComponent<Health>().IsDead += DeadEnemy;
         gameObject.SetActive(false);
     }
 
+    private void DeadEnemy()
+    {
+        var dropList = CurrentStats.ItemDropList;
+        float randomValue = Random.value;
+        float totalChance = 0f;
+
+        foreach (var item in dropList)
+        {
+            totalChance += item.ItemStats.ChanceToDrop;
+        }
+
+        float cumulativeChance = 0f;
+        foreach (var item in dropList)
+        {
+            cumulativeChance += item.ItemStats.ChanceToDrop / totalChance;
+
+            if (randomValue < cumulativeChance)
+            {
+                OnDropItem?.Invoke(item);
+                break;
+            }
+        }
+    }
+    
     protected override void OnEnterAttackState()
     {
         
@@ -74,6 +102,6 @@ public class Enemy : Character
         {
             Target.GetComponent<Health>().IsDead -= TargetDead;
         }
-        GetComponent<Health>().IsDead -= TargetDead;
+        GetComponent<Health>().IsDead -= DeadEnemy;
     }
 }

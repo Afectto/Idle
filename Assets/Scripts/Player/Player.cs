@@ -12,7 +12,7 @@ public class Player : Character
     protected override void Awake()
     {
         base.Awake();
-        currentStats = baseStats.Stats;
+        CurrentStats = baseStats.Stats;
         GetComponent<Health>().IsDead += PlayerDead;
         StateMachine.SetCommonParameters(baseStats.Stats.TimeToPrepareAttack, Weapon.GetWeaponStats(), Target);
     }
@@ -22,7 +22,7 @@ public class Player : Character
         IsDead?.Invoke();
         StateMachine.ForceChangeState(new OutOfCombatState(StateMachine));
         gameObject.SetActive(true);
-        GetComponent<Health>().Heal(currentStats.Health);
+        GetComponent<Health>().Heal(CurrentStats.Health);
     }
 
     private void TargetDead()
@@ -67,23 +67,23 @@ public class Player : Character
         switch (statType)
         {
             case StatType.Health:
-                currentStats.Health += value;
-                HealthChange?.Invoke(currentStats.Health);
+                CurrentStats.Health += value;
+                HealthChange?.Invoke(CurrentStats.Health);
                 break;
             case StatType.Restored:
                 GetComponent<Health>().Heal(value);
                 break;
             case StatType.Armor:
-                currentStats.Armor += value;
+                CurrentStats.Armor += value;
                 break;
             case StatType.AttackPower:
-                currentStats.AttackPower += value;
+                CurrentStats.AttackPower += value;
                 break;
             case StatType.TimeToPrepareAttack:
-                currentStats.TimeToPrepareAttack += value;
+                CurrentStats.TimeToPrepareAttack += value;
                 break;
             case StatType.Luck:
-                currentStats.Luck += value;
+                CurrentStats.Luck += value;
                 break;
         }
 

@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statType: 5
   type: 0
+  chanceToDrop: 0.4
   isStackable: 1
   HealthRestored: 5

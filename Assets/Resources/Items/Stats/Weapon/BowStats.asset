@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statType: 4
   type: 1
+  chanceToDrop: 0.2
   isStackable: 0
   weaponType: 1
   Damage: 4

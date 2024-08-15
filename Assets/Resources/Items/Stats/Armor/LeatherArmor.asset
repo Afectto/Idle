@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statType: 1
   type: 2
+  chanceToDrop: 0.25
   isStackable: 0
   Defense: 1

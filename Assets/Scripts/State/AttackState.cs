@@ -15,7 +15,6 @@ public class AttackState : State
 
     public override void Enter()
     {
-        Debug.Log("Character is attacking.");
         _character.StartCoroutine(PerformAttack());
     }
 
@@ -50,7 +49,6 @@ public class AttackState : State
         float enemyArmor = _stateMachine.GetCurrentTarget().GetCurrentStats().Armor;
 
         int totalDamage = Mathf.Max(0, (int)(baseDamage + attackPower - enemyArmor));
-        Debug.Log($"Total Damage: {totalDamage}");
         return totalDamage;
     }
 }

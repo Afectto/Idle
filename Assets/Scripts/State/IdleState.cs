@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using UnityEngine;
 
 public class IdleState : State
 {
@@ -11,7 +10,6 @@ public class IdleState : State
     }
     public override void Enter()
     {
-        Debug.Log($"{_stateMachine.Owner.GetType().Name} Character is Idle.");
     }
     
     public override IEnumerator Exit(bool isForce = false, float duration = 0)
