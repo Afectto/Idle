@@ -12,7 +12,7 @@ public abstract class Character : MonoBehaviour
     public virtual Stats GetCurrentStats() => currentStats;
     public event Action<State> OnChangeState; 
     
-    protected virtual void Start()
+    protected virtual void Awake()
     {
         StateMachine = new StateMachine(this);
         StateMachine.OnChangeState += ChangeState;

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08a98803dde64c86b8f11539bc42a00e, type: 3}
   m_Name: Apple
   m_EditorClassIdentifier: 
-  statType: 0
+  statType: 5
   type: 0
+  isStackable: 1
   HealthRestored: 5

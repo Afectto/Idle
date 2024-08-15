@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public enum WearableItemsType
 {
@@ -8,12 +9,13 @@ public enum WearableItemsType
     Helmet,
     Leg
 }
+[Serializable]
 [CreateAssetMenu(fileName = "Item", menuName = "GameInfo/ItemStats/New Item")]
 public class Item : ScriptableObject
 {
     [SerializeField] private Sprite skin;
     [SerializeReference] private ItemStats _stats;
-
+    [HideInInspector]public int amount;
     public ItemStats ItemStats => _stats;
     public Sprite GetSkin() => skin;
     

@@ -8,11 +8,13 @@ public class Player : Character
     public event Action<StatType, float> StatChange;
     public event Action<float> HealthChange;
     public event Action IsDead;
-
-    private void Awake()
+    
+    protected override void Awake()
     {
+        base.Awake();
         currentStats = baseStats.Stats;
         GetComponent<Health>().IsDead += PlayerDead;
+        StateMachine.SetCommonParameters(baseStats.Stats.TimeToPrepareAttack, Weapon.GetWeaponStats(), Target);
     }
 
     private void PlayerDead()
@@ -27,14 +29,7 @@ public class Player : Character
     {
         StateMachine.ForceChangeState(new IdleState(StateMachine));
     }
-
-    protected override void Start()
-    {
-        base.Start();
-
-        StateMachine.SetCommonParameters(baseStats.Stats.TimeToPrepareAttack, Weapon.GetWeaponStats(), Target);
-    }
-
+    
     protected override void OnEnterAttackState()
     {
     }

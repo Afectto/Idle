@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -6,8 +7,10 @@ public class PlayerItemSlot : ItemSlot
 {
     [SerializeField] private List<WearableItemsType> possibleItemInSlot;
     private Player _player;
+    public event Action<Item> ItemApply;
+    public event Action<Item> ItemRemove;
 
-    private void Start()
+    private void Awake()
     {
         _player = FindObjectOfType<Player>();
     }
@@ -33,22 +36,21 @@ public class PlayerItemSlot : ItemSlot
 
     public void OnApplyItem()
     {
-        
         var itemInSlot = GetComponentInChildren<UI_Item>();
         
         if (itemInSlot != null)
         {
             itemInSlot.GetItem().ApplyItem(_player);
+            ItemApply?.Invoke(itemInSlot.GetItem());
         }
     }
     
-    public void OnRemoveItem()
+    public void OnRemoveItem(UI_Item item)
     {
-        var itemInSlot = GetComponentInChildren<UI_Item>();
-        
-        if (itemInSlot != null)
+        if (item != null)
         {
-            itemInSlot.GetItem().RemoveItem(_player);
+            item.GetItem().RemoveItem(_player);
+            ItemRemove?.Invoke(item.GetItem());
         }
     }
 }

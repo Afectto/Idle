@@ -7,6 +7,8 @@
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.Player.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
+        <e p="SaveFileInventory.txt" t="Include" />
+        <e p="SaveFileInventoryPlayer.txt" t="Include" />
         <e p="Scripts" t="Include">
           <e p="Enemy" t="Include">
             <e p="Enemy.cs" t="Include" />
@@ -31,8 +33,10 @@
             <e p="Inventory" t="Include">
               <e p="DragDrop.cs" t="Include" />
               <e p="Inventory.cs" t="Include" />
+              <e p="InventoryManager.cs" t="Include" />
               <e p="ItemSlot.cs" t="Include" />
-              <e p="PlayerItem.cs" t="Include" />
+              <e p="PlayerInventory.cs" t="Include" />
+              <e p="PlayerItemSlot.cs" t="Include" />
               <e p="UI_Inventory.cs" t="Include" />
             </e>
             <e p="Item.cs" t="Include" />

@@ -7,10 +7,9 @@ public class Enemy : Character
 
     public EnemyStats CurrentStats => _stats;
 
-    protected override void Start()
+    protected override void Awake()
     {
-        base.Start();
-        
+        base.Awake();
         gameObject.SetActive(false);
     }
 

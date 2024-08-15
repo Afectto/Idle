@@ -17,13 +17,21 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
     public void OnBeginDrag(PointerEventData eventData)
     {
         var playerItemSlot = _rectTransform.parent.GetComponent<PlayerItemSlot>();
+        UI_Item uiItem = null;
         if (playerItemSlot)
         {
-            playerItemSlot.OnRemoveItem();
+            uiItem = playerItemSlot.GetComponentInChildren<UI_Item>();
         }
         _rectTransform.SetParent(GetComponentInParent<Canvas>().transform);
         _rectTransform.SetAsLastSibling();
         _canvasGroup.blocksRaycasts = false;
+
+        if (playerItemSlot)
+        {
+            playerItemSlot.OnRemoveItem(uiItem);
+        }
+
+        parentAfterDrag.GetComponentInParent<UI_Inventory>()?.UpdateUI();
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -36,6 +44,7 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
         {
             playerItemSlot.OnApplyItem();
         }
+        GetComponentInParent<UI_Inventory>()?.UpdateUI();
     }
 
     public void OnDrag(PointerEventData eventData)
