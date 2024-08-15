@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: NonWeapon
   m_EditorClassIdentifier: 
   statType: 0
+  type: 1
   weaponType: 0
   Damage: 0
   AttackDuration: 0.5

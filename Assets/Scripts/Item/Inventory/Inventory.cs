@@ -9,6 +9,11 @@ public class Inventory
         _itemsList = new List<Item>();
     }
 
+    public void SetItemToIndex(Item item, int index)
+    {
+        _itemsList[index] = item;
+    }
+
     public void AddItem(Item item)
     {
         _itemsList.Add(item);

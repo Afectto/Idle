@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: BowStats
   m_EditorClassIdentifier: 
   statType: 0
+  type: 2
   weaponType: 1
   Damage: 4
   AttackDuration: 0.7

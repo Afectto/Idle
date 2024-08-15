@@ -28,6 +28,13 @@
             <e p="StatType.cs" t="Include" />
           </e>
           <e p="Item" t="Include">
+            <e p="Inventory" t="Include">
+              <e p="DragDrop.cs" t="Include" />
+              <e p="Inventory.cs" t="Include" />
+              <e p="ItemSlot.cs" t="Include" />
+              <e p="PlayerItem.cs" t="Include" />
+              <e p="UI_Inventory.cs" t="Include" />
+            </e>
             <e p="Item.cs" t="Include" />
             <e p="ItemStats" t="Include">
               <e p="ArmorStats.cs" t="Include" />
@@ -35,8 +42,10 @@
               <e p="ItemStats.cs" t="Include" />
               <e p="WeaponStats.cs" t="Include" />
             </e>
+            <e p="UI_Item.cs" t="Include" />
           </e>
           <e p="Player" t="Include">
+            <e p="HealPlayerButton.cs" t="Include" />
             <e p="Player.cs" t="Include" />
             <e p="PlayerStats.cs" t="Include" />
             <e p="Weapon.cs" t="Include" />

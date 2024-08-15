@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 
 public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
@@ -17,6 +16,11 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
     
     public void OnBeginDrag(PointerEventData eventData)
     {
+        var playerItemSlot = _rectTransform.parent.GetComponent<PlayerItemSlot>();
+        if (playerItemSlot)
+        {
+            playerItemSlot.OnRemoveItem();
+        }
         _rectTransform.SetParent(GetComponentInParent<Canvas>().transform);
         _rectTransform.SetAsLastSibling();
         _canvasGroup.blocksRaycasts = false;
@@ -27,6 +31,11 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
         _canvasGroup.blocksRaycasts = true;
         _rectTransform.SetParent(parentAfterDrag);
         transform.localPosition = Vector3.zero;
+        var playerItemSlot = _rectTransform.parent.GetComponent<PlayerItemSlot>();
+        if (playerItemSlot)
+        {
+            playerItemSlot.OnApplyItem();
+        }
     }
 
     public void OnDrag(PointerEventData eventData)

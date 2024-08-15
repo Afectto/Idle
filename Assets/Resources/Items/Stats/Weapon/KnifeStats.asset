@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: KnifeStats
   m_EditorClassIdentifier: 
   statType: 0
+  type: 1
   weaponType: 0
   Damage: 2
   AttackDuration: 0.2

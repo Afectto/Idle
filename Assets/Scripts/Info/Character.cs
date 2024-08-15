@@ -4,7 +4,7 @@ using UnityEngine;
 public abstract class Character : MonoBehaviour
 {
     protected StateMachine StateMachine;
-    protected Stats currentStats;
+    [SerializeField]protected Stats currentStats;
     protected Weapon Weapon;
     protected Character Target;
 
@@ -29,7 +29,7 @@ public abstract class Character : MonoBehaviour
             void StateChangeHandler(object state) 
             {
                 StateMachine.ChangeState(new ChangeWeaponState(StateMachine, Weapon, stats));
-                StateMachine.OnChangeState -= StateChangeHandler; // Используйте метод без приведения типов
+                StateMachine.OnChangeState -= StateChangeHandler; 
             }
 
             StateMachine.OnChangeState += StateChangeHandler;

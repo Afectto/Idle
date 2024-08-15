@@ -9,7 +9,7 @@ public class UI_Item : MonoBehaviour
     
     private void Awake()
     {
-        skin.sprite = currentItem.GetSkin();
+        // skin.sprite = currentItem.GetSkin();
     }
 
     public void SetItem(Item item)

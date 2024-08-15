@@ -17,11 +17,16 @@ public class WeaponStats : ItemStats
     
     public override void ApplyItem(Player target)
     {
-        target.ChangeStat(StatsType, Damage);
+        target.ChangeWeapon(this);
     }
 
     public override void RemoveItem(Player target)
     {
-        target.ChangeStat(StatsType, Damage);
+        target.ChangeWeapon(new WeaponStats
+        {
+            weaponType = WeaponType.Melee,
+            Damage = 0,
+            AttackDuration = 0.5f
+        });
     }
 }
