@@ -15,4 +15,12 @@ public class ConsumablesStats : ItemStats
     public override void RemoveItem(Player target)
     {
     }
+    
+    public override string GetStatsText()
+    {
+        var text = base.GetStatsText();
+        text += $"\nRestores: {HealthRestored}";
+        
+        return text;
+    }
 }

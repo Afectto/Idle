@@ -1,8 +1,10 @@
+using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UI_Item : MonoBehaviour
+public class UI_Item : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private Item currentItem;
     [SerializeField] private Image skin;
@@ -11,11 +13,18 @@ public class UI_Item : MonoBehaviour
     private ItemSlot _itemSlot;
     private float _lastClickTime;
     private const float DoubleClickDelay = 0.3f;
+    private Tooltip _tooltip;
 
     private void Awake()
     {
         _amount = 1;
     }
+
+    private void Start()
+    {
+        _tooltip = FindObjectOfType<Tooltip>(true);
+    }
+
     private void Update()
     {
         if (Input.GetMouseButtonDown(0)) // Проверяем левую кнопку мыши
@@ -79,5 +88,16 @@ public class UI_Item : MonoBehaviour
         currentItem.amount = _amount;
         text.gameObject.SetActive(_amount > 1);
         text.text = _amount.ToString();
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        string text = currentItem.ItemStats.GetStatsText();
+        _tooltip.ShowTooltip(text);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        _tooltip.HideTooltip();
     }
 }

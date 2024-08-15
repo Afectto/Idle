@@ -14,4 +14,9 @@ public abstract class ItemStats : ScriptableObject
     
     public abstract void ApplyItem(Player target);
     public abstract void RemoveItem(Player target);
+
+    public virtual string GetStatsText()
+    {
+        return $"Is Stackable: {isStackable}";
+    }
 }

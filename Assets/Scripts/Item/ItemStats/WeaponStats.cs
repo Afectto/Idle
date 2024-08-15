@@ -29,4 +29,15 @@ public class WeaponStats : ItemStats
             AttackDuration = 0.5f
         });
     }
+    
+    
+    public override string GetStatsText()
+    {
+        var text = base.GetStatsText();
+        text += $"\nWeaponType: {weaponType}" +
+                $"\nDamage: {Damage}" +
+                $"\nAttackDuration: {AttackDuration}";
+        
+        return text;
+    }
 }

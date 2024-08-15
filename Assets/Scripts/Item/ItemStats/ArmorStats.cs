@@ -16,4 +16,12 @@ public class ArmorStats : ItemStats
     {
         target.ChangeStat(StatsType, -Defense);
     }
+
+    public override string GetStatsText()
+    {
+        var text = base.GetStatsText();
+        text += $"\nArmor: {Defense}";
+        
+        return text;
+    }
 }
