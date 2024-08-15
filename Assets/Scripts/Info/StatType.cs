@@ -1,5 +1,6 @@
 ﻿public enum StatType
 {
+    NaN,
     Health,
     Armor,
     AttackPower,

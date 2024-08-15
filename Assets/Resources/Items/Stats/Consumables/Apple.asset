@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08a98803dde64c86b8f11539bc42a00e, type: 3}
   m_Name: Apple
   m_EditorClassIdentifier: 
-  statType: 5
+  statType: 6
   type: 0
   chanceToDrop: 0.4
   isStackable: 1

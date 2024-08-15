@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9a1fc2b2c2c41c2a021fbe6f4278392, type: 3}
   m_Name: LeatherArmor
   m_EditorClassIdentifier: 
-  statType: 1
+  statType: 2
   type: 2
   chanceToDrop: 0.25
   isStackable: 0
