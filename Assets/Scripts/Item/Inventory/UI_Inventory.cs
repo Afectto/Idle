@@ -40,6 +40,13 @@ public class UI_Inventory : MonoBehaviour
         manager.LoadInventory();
         var itemList = _inventory.GetItemList();
 
+        if (itemList.Count == 0)
+        {
+            for (int i = 0; i < SlotCount; i++)
+            {
+                _inventory.AddItem(null);
+            }
+        }
         for (int i = 0; i < itemList.Count; i++)
         {
             if (itemList[i])

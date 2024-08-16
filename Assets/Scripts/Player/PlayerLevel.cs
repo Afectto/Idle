@@ -149,9 +149,9 @@ public class PlayerLevel : MonoBehaviour
         pointLeft.text = "Point Left: " + GetSkillPointCount();
     }
     
-    public float GetSkillPointCount()
+    public int GetSkillPointCount()
     {
-        return _level - (_stats.GetTotalStats() - _stats.TimeToPrepareAttack + _stats.TimeToPrepareAttack * 20 - _stats.Health + _stats.Health / 5);
+        return (int)Math.Ceiling(_level - (_stats.GetTotalStats() - _stats.TimeToPrepareAttack + _stats.TimeToPrepareAttack * 20 - _stats.Health + _stats.Health / 5));
     }
     
     public void OnDestroy()

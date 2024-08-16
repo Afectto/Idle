@@ -9,6 +9,7 @@
       <e p="Assets" t="Include">
         <e p="SaveFileInventory.txt" t="Include" />
         <e p="SaveFileInventoryPlayer.txt" t="Include" />
+        <e p="SaveFilePlayerLevel.txt" t="Include" />
         <e p="Scripts" t="Include">
           <e p="Enemy" t="Include">
             <e p="Enemy.cs" t="Include" />
@@ -33,10 +34,14 @@
             <e p="Inventory" t="Include">
               <e p="DragDrop.cs" t="Include" />
               <e p="Inventory.cs" t="Include" />
-              <e p="InventoryManager.cs" t="Include" />
               <e p="ItemSlot.cs" t="Include" />
               <e p="PlayerInventory.cs" t="Include" />
               <e p="PlayerItemSlot.cs" t="Include" />
+              <e p="SaveInventory" t="Include">
+                <e p="InventoryManager.cs" t="Include" />
+                <e p="ItemListPlayerWrapper.cs" t="Include" />
+                <e p="ItemListWrapper.cs" t="Include" />
+              </e>
               <e p="StatsPanel.cs" t="Include" />
               <e p="Tooltip.cs" t="Include" />
               <e p="UI_Inventory.cs" t="Include" />
@@ -53,7 +58,9 @@
           <e p="Player" t="Include">
             <e p="HealPlayerButton.cs" t="Include" />
             <e p="Player.cs" t="Include" />
+            <e p="PlayerLevel.cs" t="Include" />
             <e p="PlayerStats.cs" t="Include" />
+            <e p="SavePlayerLevel.cs" t="Include" />
             <e p="Weapon.cs" t="Include" />
           </e>
           <e p="State" t="Include">

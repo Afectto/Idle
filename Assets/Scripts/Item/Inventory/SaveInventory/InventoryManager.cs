@@ -6,29 +6,30 @@ using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
 {
-    private string inventoryFilePath = "Assets/SaveFileInventory.txt";
-    private string inventoryPlayerFilePath = "Assets/SaveFileInventoryPlayer.txt";
+    private string _inventoryFilePath;
+    private string _inventoryPlayerFilePath ;
     private Inventory _inventory;
     private PlayerInventory _playerInventory;
 
     public void SetPlayerInventory(PlayerInventory inventory)
     {
         _playerInventory = inventory;
+        _inventoryPlayerFilePath = Path.Combine(Application.persistentDataPath, "SaveFileInventoryPlayer.txt");
     }
 
     public void SavePlayerInventory()
     {
         ItemListPlayerWrapper wrapper = new ItemListPlayerWrapper(_playerInventory);
         string json = JsonUtility.ToJson(wrapper);
-        File.WriteAllText(inventoryPlayerFilePath, json);
+        File.WriteAllText(_inventoryPlayerFilePath, json);
     }
 
     public void LoadPlayerInventory()
     {
-        if (File.Exists(inventoryPlayerFilePath))
+        if (File.Exists(_inventoryPlayerFilePath))
         {
             List<Item> loadedItems = Resources.LoadAll<Item>("Items/ItemType").ToList();
-            string json = File.ReadAllText(inventoryPlayerFilePath);
+            string json = File.ReadAllText(_inventoryPlayerFilePath);
             ItemListPlayerWrapper wrapper = JsonUtility.FromJson<ItemListPlayerWrapper>(json);
             
             var loadedItem = loadedItems.Find(obj => obj.name == wrapper.helmet);
@@ -46,6 +47,7 @@ public class InventoryManager : MonoBehaviour
     public void SetInventory(Inventory inventory)
     {
         _inventory = inventory;
+        _inventoryFilePath = Path.Combine(Application.persistentDataPath, "SaveFileInventory.txt");
     }
 
     public void SaveInventory()
@@ -53,15 +55,15 @@ public class InventoryManager : MonoBehaviour
         List<Item> itemList = _inventory.GetItemList();
         ItemListWrapper wrapper = new ItemListWrapper(itemList);
         string json = JsonUtility.ToJson(wrapper);
-        File.WriteAllText(inventoryFilePath, json);
+        File.WriteAllText(_inventoryFilePath, json);
     }
 
     public void LoadInventory()
     {
-        if (File.Exists(inventoryFilePath))
+        if (File.Exists(_inventoryFilePath))
         {
             List<Item> loadedItems = Resources.LoadAll<Item>("Items/ItemType").ToList();
-            string json = File.ReadAllText(inventoryFilePath);
+            string json = File.ReadAllText(_inventoryFilePath);
             ItemListWrapper wrapper = JsonUtility.FromJson<ItemListWrapper>(json);
 
             for (int i = 0; i < wrapper.items.Count; i++)

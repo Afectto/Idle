@@ -19,25 +19,26 @@ public struct PlayerLvlStats
 
 public class SavePlayerLevel
 {
-    private string inventoryPlayerFilePath = "Assets/SaveFilePlayerLevel.txt";
+    private string _saveFilePlayerLevelPath;
     private readonly PlayerLevel _playerLevel;
 
     public SavePlayerLevel(PlayerLevel playerLevel)
     {
         _playerLevel = playerLevel;
+        _saveFilePlayerLevelPath = Path.Combine(Application.persistentDataPath, "SaveFilePlayerLevel.txt");
     }
 
     public void SavePlayerLevelStats()
     {
         string json = JsonUtility.ToJson(_playerLevel.GetLevelStats());
-        File.WriteAllText(inventoryPlayerFilePath, json);
+        File.WriteAllText(_saveFilePlayerLevelPath, json);
     }
 
     public void LoadPlayerLevelStats()
     {
-        if (File.Exists(inventoryPlayerFilePath))
+        if (File.Exists(_saveFilePlayerLevelPath))
         {
-            string json = File.ReadAllText(inventoryPlayerFilePath);
+            string json = File.ReadAllText(_saveFilePlayerLevelPath);
             PlayerLvlStats stats = JsonUtility.FromJson<PlayerLvlStats>(json);
             _playerLevel.UpdateStats(stats);
         }
