@@ -22,6 +22,7 @@ public class ItemSlot : MonoBehaviour, IDropHandler
                 
                 itemInCurrentSlot.transform.SetParent(draggableItem.parentAfterDrag);
                 itemInCurrentSlot.transform.localPosition = Vector3.zero;;
+                draggableItem.parentAfterDrag.GetComponentInParent<UI_Inventory>()?.UpdateUI();
                 draggableItem.parentAfterDrag = transform;
             }
         }

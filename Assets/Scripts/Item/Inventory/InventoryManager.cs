@@ -99,6 +99,7 @@ public class InventoryManager : MonoBehaviour
         ItemListWrapper wrapper = new ItemListWrapper(itemList);
         string json = JsonUtility.ToJson(wrapper);
         File.WriteAllText(inventoryFilePath, json);
+        Debug.Log(json);
     }
 
     public void LoadInventory()

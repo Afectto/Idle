@@ -37,6 +37,8 @@
               <e p="ItemSlot.cs" t="Include" />
               <e p="PlayerInventory.cs" t="Include" />
               <e p="PlayerItemSlot.cs" t="Include" />
+              <e p="StatsPanel.cs" t="Include" />
+              <e p="Tooltip.cs" t="Include" />
               <e p="UI_Inventory.cs" t="Include" />
             </e>
             <e p="Item.cs" t="Include" />
