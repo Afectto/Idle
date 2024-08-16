@@ -1,0 +1,1 @@
+{"Stats":{"Health":5.0,"Armor":1.0,"AttackPower":0.0,"TimeToPrepareAttack":0.0,"Luck":0.0},"Level":2.0,"Experience":26.0,"ExperienceToNextLevel":40.0}

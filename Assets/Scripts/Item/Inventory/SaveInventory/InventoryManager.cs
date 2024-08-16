@@ -3,51 +3,6 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 
-[System.Serializable]
-public class ItemListWrapper
-{
-    public List<string > items;
-    public List<int> amount;
-
-    public ItemListWrapper(List<Item> itemList)
-    {
-        items = new List<string>();
-        amount = new List<int>();
-        foreach (var item in itemList)
-        {
-            if (item)
-            {
-                amount.Add(item.amount);
-                items.Add(item.name);
-            }
-            else
-            {
-                amount.Add(0);
-                items.Add("");
-            }
-        }
-    }
-}
-
-
-[System.Serializable]
-public class ItemListPlayerWrapper
-{
-    public string helmet;
-    public string armor;
-    public string leg;
-    public string weapon;
-
-    public ItemListPlayerWrapper(PlayerInventory inventory)
-    {
-        var items = inventory.GetAllItems();
-        if (items.Count < 4) return;
-        helmet = items[0].GetComponentInChildren<UI_Item>()?.GetItem().name;
-        armor = items[1].GetComponentInChildren<UI_Item>()?.GetItem().name;
-        leg = items[2].GetComponentInChildren<UI_Item>()?.GetItem().name;
-        weapon = items[3].GetComponentInChildren<UI_Item>()?.GetItem().name;
-    }
-}
 
 public class InventoryManager : MonoBehaviour
 {
@@ -99,7 +54,6 @@ public class InventoryManager : MonoBehaviour
         ItemListWrapper wrapper = new ItemListWrapper(itemList);
         string json = JsonUtility.ToJson(wrapper);
         File.WriteAllText(inventoryFilePath, json);
-        Debug.Log(json);
     }
 
     public void LoadInventory()

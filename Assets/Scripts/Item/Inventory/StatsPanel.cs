@@ -65,7 +65,7 @@ public class StatsPanel : MonoBehaviour
                     $"<color=yellow>Health:</color> {_health}\n" +
                     $"<color=yellow>Armor:</color> {_armor}\n" +
                     $"<color=yellow>Attack Power:</color> {_attackPower}\n" +
-                    $"<size={fontSize-1.5f}><color=yellow>Time To Prepare Attack:</color> {_timeToPrepareAttack}</size>\n" +
+                    $"<size={fontSize-1.5f}><color=yellow>Time To Prepare Attack:</color> {_timeToPrepareAttack:F2}</size>\n" +
                     $"<color=yellow>Luck:</color> {_luck}";
     }
 

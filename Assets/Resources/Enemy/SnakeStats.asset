@@ -19,7 +19,7 @@ MonoBehaviour:
     TimeToPrepareAttack: 2
     Luck: 0
   chanceToSpawn: 0.3
-  exp: 2
+  exp: 5
   itemDropList:
   - {fileID: 11400000, guid: 82e8d06678731e74396dbd5a8de9734a, type: 2}
   - {fileID: 11400000, guid: bfad89a70850b5843bb917ce53f00ed0, type: 2}

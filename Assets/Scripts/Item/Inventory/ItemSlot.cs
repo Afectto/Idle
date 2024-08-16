@@ -28,9 +28,4 @@ public class ItemSlot : MonoBehaviour, IDropHandler
         }
         GetComponentInParent<UI_Inventory>()?.UpdateUI();
     }
-
-    public void AddItem(UI_Item item)
-    {
-        item.transform.SetParent(transform);
-    }
 }

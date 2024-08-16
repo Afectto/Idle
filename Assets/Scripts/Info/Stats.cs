@@ -8,4 +8,9 @@ public struct Stats
     public float AttackPower;
     public float TimeToPrepareAttack;
     public float Luck;
+    
+    public float GetTotalStats()
+    {
+        return Health + Armor + AttackPower + TimeToPrepareAttack + Luck;
+    }
 }

@@ -8,6 +8,7 @@ public class Player : Character
     public event Action<StatType, float> StatChange;
     public event Action<float> HealthChange;
     public event Action IsDead;
+    public event Action<EnemyStats> OnTargetDead;
     
     protected override void Awake()
     {
@@ -27,6 +28,7 @@ public class Player : Character
 
     private void TargetDead()
     {
+        OnTargetDead?.Invoke(Target.GetComponent<Enemy>().CurrentStats);
         StateMachine.ForceChangeState(new IdleState(StateMachine));
     }
     
@@ -61,7 +63,7 @@ public class Player : Character
         Target = FindObjectOfType<Enemy>();
         Target.GetComponent<Health>().IsDead += TargetDead;
     }
-
+    
     public void ChangeStat(StatType statType, float value)
     {
         switch (statType)
@@ -80,7 +82,7 @@ public class Player : Character
                 CurrentStats.AttackPower += value;
                 break;
             case StatType.TimeToPrepareAttack:
-                CurrentStats.TimeToPrepareAttack += value;
+                CurrentStats.TimeToPrepareAttack -= value;
                 break;
             case StatType.Luck:
                 CurrentStats.Luck += value;
